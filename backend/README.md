@@ -9,6 +9,9 @@
 
 ## EXECUTAR O COMANDO `npx serve` DENTRO DA PASTA `imsomnia` DENTRO DA PASTA BACKEND <br /><br />
 
+# COMO RODAR COM O DOCKER
+## EXECUTAR O COMANDO `docker-compose up -d` <br /><br />
+
 
 # Versões
 ### Node: 14.17.5
