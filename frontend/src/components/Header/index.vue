@@ -1,8 +1,11 @@
 <template>
   <header class="header-container">
-    <router-link to="/" class="logo">
-      <img src="../../assets/logo.svg" alt="Shortly" />
-    </router-link>
+    <nav class="logo">
+      <router-link to="/">
+        <img src="../../assets/logo.svg" alt="Shortly" />
+      </router-link>
+      <router-link to="/urls-mais-acessadas">Mais clickadas</router-link>
+    </nav>
     <div class="auth-buttons">
       <router-link to="/entrar" class="sign-in">Entrar</router-link>
       <router-link to="/cadastro" class="sign-up">Cadastrar-se</router-link>
@@ -30,7 +33,29 @@ export default class Header extends Vue {}
   align-items: center;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: var(--gray-violet-color);
+  cursor: pointer;
+  transition: filter 0.3s;
+}
+
+.logo a:hover {
+  filter: brightness(0.5);
+}
+
+.logo a + a {
+  margin-left: 3rem;
+}
+
 .logo img {
+  margin-top: 0.5rem;
   cursor: pointer;
 }
 
