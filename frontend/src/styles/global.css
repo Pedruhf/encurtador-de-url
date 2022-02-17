@@ -5,13 +5,13 @@
 }
 
 :root {
-  --cyan-color: hsl(180, 66%, 49%);
-  --dark-violet-color: hsl(257, 27%, 26%);
-  --gray-color: hsl(0, 0%, 75%);
-  --gray-violet-color: hsl(257, 7%, 63%);
-  --very-dark-blue-color: hsl(255, 11%, 22%);
-  --very-dark-violet-color: hsl(260, 8%, 14%);
-  --red-color: hsl(0, 87%, 67%);
+  --cyan-color: #2acfcf;
+  --dark-violet-color: #3b3054;
+  --gray-color: #bfbfbf;
+  --gray-violet-color: #9e9aa7;
+  --very-dark-blue-color: #35323e;
+  --very-dark-violet-color: #232127;
+  --red-color: #f46262;
 }
 
 body {

@@ -32,13 +32,14 @@ export default class Slogan extends Vue {}
   width: 35rem;
 }
 
-.slogan-container h1 {
+
+.slogan-text h1 {
   font-size: 3rem;
   color: var(--very-dark-blue-color);
   line-height: 3.5rem;
 }
 
-.slogan-container p {
+.slogan-text p {
   margin-top: 0.5rem;
   font-size: 1.2rem;
   color: var(--gray-color);

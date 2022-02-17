@@ -4,8 +4,8 @@
       <img src="../../assets/logo.svg" alt="Shortly" />
     </router-link>
     <div class="auth-buttons">
-      <button class="sign-in">Entrar</button>
-      <button class="sign-up">Cadastrar-se</button>
+      <router-link to="/entrar" class="sign-in">Entrar</router-link>
+      <router-link to="/cadastro" class="sign-up">Cadastrar-se</router-link>
     </div>
   </header>
 </template>
@@ -45,7 +45,7 @@ export default class Header extends Vue {}
   color: #fff;
 }
 
-button {
+.auth-buttons a {
   width: max-content;
   height: 2.5rem;
   padding: 0.5rem 1rem;
@@ -53,9 +53,10 @@ button {
   border: 0;
   outline: 0;
   font-size: 0.9rem;
+  text-decoration: none;
 }
 
-button:hover {
+.auth-buttons a:hover {
   filter: brightness(0.95);
 }
 </style>
