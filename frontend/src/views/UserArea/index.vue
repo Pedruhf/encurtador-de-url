@@ -16,7 +16,7 @@
       <div v-if="navOption === 0 && !isEditing" class="user-info">
         <p><strong>Nome:</strong> {{ user.name || "Não informado" }}</p>
         <p><strong>email:</strong> {{ user.email || "Não informado" }}</p>
-        <p><strong>Quantidade de URL's criadas:</strong> {{ user.savedUrls.length || "Não calculado" }}</p>
+        <p><strong>Quantidade de URL's criadas:</strong> {{ user.savedUrls.length }}</p>
         <button @click="isEditing = true">Editar</button>
       </div>
       <div v-if="navOption === 0 && isEditing" class="user-info">
@@ -29,7 +29,7 @@
       </div>
       <div v-if="navOption === 1" class="URL-container">
         <div v-for="url in user.savedUrls" :key="url._id" class="URL-card">
-          <p>https://mail.google.com/mail/u/0/#inbox</p>
+          <p>{{ url.shortenedURL }} -> {{ url.originalURL }}</p>
           <delete-icon />
         </div>
       </div>

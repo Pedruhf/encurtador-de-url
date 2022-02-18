@@ -97,9 +97,10 @@ button {
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
   border: 1px solid var(--cyan-color);
-    outline: 0;
+  outline: 0;
   font-size: 1rem;
   color: var(--cyan-color);
+  background: #fff;
 
   align-self: flex-end;
   display: flex;

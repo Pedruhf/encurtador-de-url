@@ -112,6 +112,7 @@ button {
   outline: 0;
   font-size: 1rem;
   color: var(--cyan-color);
+  background: #fff;
 
   align-self: flex-end;
   display: flex;

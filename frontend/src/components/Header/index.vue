@@ -6,20 +6,44 @@
       </router-link>
       <router-link to="/urls-mais-acessadas">Mais clickadas</router-link>
     </nav>
-    <div class="auth-buttons">
+    <div v-if="!user._id" class="auth-buttons">
       <router-link to="/entrar" class="sign-in">Entrar</router-link>
       <router-link to="/cadastro" class="sign-up">Cadastrar-se</router-link>
+    </div>
+    <div v-else>
+      <div class="open-dropdown">
+        <p>{{ user.name }}</p>
+        <dropdown-icon />
+      </div>
+      <div class="menu-dropdown">
+        <router-link :to="{ name: 'account' }" class="dropdown-item">Conta</router-link>
+        <hr>
+        <p class="dropdown-item">Sair</p>
+      </div>
     </div>
   </header>
 </template>
 
-<script>
+<script lang="ts">
 // Vue
 import Vue from "vue";
 import Component from "vue-class-component";
 
-@Component({})
-export default class Header extends Vue {}
+// Icons
+import LogoutIcon from "vue-material-design-icons/Logout.vue";
+import DropdownIcon from "vue-material-design-icons/ChevronDown.vue";
+
+@Component({
+  components: {
+    LogoutIcon,
+    DropdownIcon,
+  }
+})
+export default class Header extends Vue {
+  public get user() {
+    return this.$store.state.userStore.user;
+  }
+}
 </script>
 
 <style scoped>
@@ -83,5 +107,64 @@ export default class Header extends Vue {}
 
 .auth-buttons a:hover {
   filter: brightness(0.95);
+}
+
+.open-dropdown {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.open-dropdown span {
+  margin-top: 0.5rem;
+}
+
+.menu-dropdown {
+  display: none;
+  border-radius: 0.5rem;
+
+  min-width: 10rem;
+  position: absolute;
+  top: 4.2rem;
+  right: 3.5%;
+  padding: 1rem;
+  
+  box-shadow: 0.4rem 0.4rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.menu-dropdown hr {
+  width: 80%;
+  margin-top: 0.75rem;
+  margin-bottom: 0.3rem;
+  border-top: 1px solid var(--dark-violet-color);;
+  background: var(--dark-violet-color);
+  max-height: 1px;
+}
+
+.menu-dropdown:hover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-dropdown .dropdown-item {
+  width: 100%;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s;
+  text-decoration: none;
+  color: var(--dark-violet-color);
+}
+
+.menu-dropdown .dropdown-item:hover {
+  background: #eee;
+}
+
+.open-dropdown:hover ~ .menu-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
