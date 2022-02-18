@@ -14,9 +14,9 @@
         </div>
       </nav>
       <div v-if="navOption === 0 && !isEditing" class="user-info">
-        <p><strong>Nome:</strong> username</p>
-        <p><strong>email:</strong> user email</p>
-        <p><strong>Quantidade de URL's criadas:</strong> 0</p>
+        <p><strong>Nome:</strong> {{ user.name || "Não informado" }}</p>
+        <p><strong>email:</strong> {{ user.email || "Não informado" }}</p>
+        <p><strong>Quantidade de URL's criadas:</strong> {{ user.savedUrls.length || "Não calculado" }}</p>
         <button @click="isEditing = true">Editar</button>
       </div>
       <div v-if="navOption === 0 && isEditing" class="user-info">
@@ -28,15 +28,7 @@
         </div>
       </div>
       <div v-if="navOption === 1" class="URL-container">
-        <div class="URL-card">
-          <p>https://mail.google.com/mail/u/0/#inbox</p>
-          <delete-icon />
-        </div>
-        <div class="URL-card">
-          <p>https://mail.google.com/mail/u/0/#inbox</p>
-          <delete-icon />
-        </div>
-        <div class="URL-card">
+        <div v-for="url in user.savedUrls" :key="url._id" class="URL-card">
           <p>https://mail.google.com/mail/u/0/#inbox</p>
           <delete-icon />
         </div>
@@ -56,6 +48,9 @@ import UserIcon from "vue-material-design-icons/Account.vue";
 import UrlIcon from "vue-material-design-icons/LinkBoxVariant.vue";
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
 
+// Types
+import { User } from "../../models/user";
+
 @Component({
   components: {
     UserIcon,
@@ -71,6 +66,10 @@ export default class UserArea extends Vue {
     super();
     this.isEditing = false;
     this.navOption = 0;
+  }
+
+  public get user(): User {
+    return this.$store.state.userStore.user;
   }
 }
 </script>

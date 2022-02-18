@@ -3,21 +3,52 @@
     <img src="../../assets/login-illustration.svg" alt="">
     <div class="login-content">
       <h1>Entrar</h1>
-      <input type="text" placeholder="E-mail" />
-      <input type="password" placeholder="Senha" />
-      <button>Entrar</button>
+      <input v-model="email" type="text" placeholder="E-mail" />
+      <input v-model="password" type="password" placeholder="Senha" />
+      <button @click="handleLogin(email, password)">Entrar</button>
       <p>Ainda não está cadastrado? <router-link to="/cadastro">cadastre-se aqui</router-link></p>
     </div>
   </main>
 </template>
 
-<script>
+<script lang="ts">
 // Vue
 import Vue from "vue";
 import Component from "vue-class-component";
 
+// Instances
+import { api, tokenHandler } from "../../main/composers/api";
+
 @Component({})
-export default class Login extends Vue {}
+export default class Login extends Vue {
+  public email: string;
+  public password: string;
+
+  constructor() {
+    super();
+    this.email = "";
+    this.password = "";
+  }
+
+
+  public async handleLogin(email: string, password: string): Promise<void> {
+    try {
+      const res = await api.request.post("/users/login", {
+        email,
+        password,
+      });
+
+      tokenHandler.setTokenInLocalStorage(res.data.token);
+      this.$store.commit("userStore/setUser", {
+        ...res.data.user
+      });
+
+      this.$router.push({ name: "account" });
+    } catch (error) {
+      alert(error.response.data.error);
+    }
+  }
+}
 </script>
 
 <style scoped>

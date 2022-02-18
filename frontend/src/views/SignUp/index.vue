@@ -3,23 +3,64 @@
     <img src="../../assets/signup-illustration.svg" alt="">
     <div class="signup-content">
       <h1>Cadastro</h1>
-      <input type="text" placeholder="Nome" />
-      <input type="text" placeholder="E-mail" />
-      <input type="password" placeholder="Senha" />
-      <input type="password" placeholder="Confirme sua senha" />
-      <button>Cadastrar</button>
+      <input v-model="userToRegister.name" type="text" placeholder="Nome" />
+      <input v-model="userToRegister.email" type="text" placeholder="E-mail" />
+      <input v-model="userToRegister.password" type="password" placeholder="Senha" />
+      <input v-model="userToRegister.confirmPassword" type="password" placeholder="Confirme sua senha" />
+      <button @click="handleRegister(userToRegister)">Cadastrar</button>
       <p>Ja tem uma conta? <router-link to="/entrar">faça login</router-link></p>
     </div>
   </main>
 </template>
 
-<script>
+<script lang="ts">
 // Vue
 import Vue from "vue";
 import Component from "vue-class-component";
 
+// Instances
+import { api } from "../../main/composers/api";
+
+type UserToRegister = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 @Component({})
-export default class SignUp extends Vue {}
+export default class SignUp extends Vue {
+  public userToRegister: UserToRegister;
+
+  constructor() {
+    super();
+    this.userToRegister = {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+  }
+
+  public resetRegisterFields(): void {
+    this.userToRegister = {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+  }
+
+  public async handleRegister(data: UserToRegister): Promise<void> {
+    try {
+      await api.request.post("users", this.userToRegister);
+      this.resetRegisterFields();
+      this.$router.push({ name: "login" });
+    } catch (error) {
+      alert(error.response.data.error);
+    }
+  }
+}
 </script>
 
 <style scoped>
