@@ -1,8 +1,12 @@
 <template>
   <div class="highlights-container">
     <div class="link-container">
-      <input type="text" placeholder="Insira sua URL" />
-      <button>Encurtar</button>
+      <input v-model="inputUrl" type="text" placeholder="Insira sua URL" />
+      <button @click="handleCreateUrlShortened">Encurtar</button>
+    </div>
+
+    <div class="created-urls" v-for="url in createdUrls" :key="url._id">  
+      <p>{{ url.shortenedURL }} -> {{ url.originalURL }}</p>
     </div>
     
     <div class="highlights-content">
@@ -30,13 +34,53 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // Vue
 import Vue from "vue";
 import Component from "vue-class-component";
 
+// Models
+import { Url } from "../../models/url";
+
+// Instances
+import { api } from "../../main/composers/api";
+
 @Component({})
-export default class Highlights extends Vue {}
+export default class Highlights extends Vue {
+  public inputUrl: string;
+  public createdUrls: Url[]
+
+  constructor() {
+    super();
+    this.inputUrl = "";
+    this.createdUrls = [];
+  }
+
+  public get userIsLogged(): boolean {
+    return this.$store.getters["userStore/isLogged"];
+  }
+
+  public handleAddToCreateUrls(url: Url): void {
+    const urlExists = this.createdUrls.find(item => item._id === url._id);
+    if (urlExists) return;
+
+    this.createdUrls.push(url);
+  }
+
+  public async handleCreateUrlShortened(): Promise<void> {
+    const requestURL = this.userIsLogged ? "auth" : "";
+    try {
+      const res = await api.request.post(requestURL, {
+        originalURL: this.inputUrl,
+      });
+
+      this.handleAddToCreateUrls(res.data);
+      console.log(this.createdUrls);
+    } catch (error) {
+      alert(error.response.data.error);
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -92,6 +136,15 @@ export default class Highlights extends Vue {}
 
 button:hover {
   filter: brightness(0.95);
+}
+
+.created-urls {
+  width: 80%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.4rem 0.4rem 1rem rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .highlights-content {

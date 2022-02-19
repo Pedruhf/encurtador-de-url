@@ -8,7 +8,7 @@ export default class Api {
     this.request = axios.create({
       baseURL: process.env.API_HOST || "http://localhost:4000",
       headers: {
-        authorization: `bearer ${tokenHandler.getTokenFromLocalStorage()}`
+        authorization: `bearer ${tokenHandler.getDataFromLocalStorage()?.token}`
       },
     });
   }  

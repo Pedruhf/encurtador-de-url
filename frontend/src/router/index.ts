@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
     name: "account",
     component: () => import("@/views/UserArea/index.vue"),
   },
+  {
+    path: "/urls-mais-acessadas",
+    name: "urls",
+    component: () => import("@/views/MostAccessedUrls/index.vue"),
+  },
 ];
 
 const router = new VueRouter({

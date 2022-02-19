@@ -11,6 +11,12 @@ const userStore: Module<UserStore, null> = {
     user: new User(),
   },
 
+  getters: {
+    isLogged(state: UserStore): boolean {
+      return state.user._id ? true : false;
+    }
+  },
+  
   mutations: {
     setUser(state: UserStore, payload: User): void {
       state.user = payload;

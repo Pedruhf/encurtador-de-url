@@ -18,7 +18,7 @@
       <div class="menu-dropdown">
         <router-link :to="{ name: 'account' }" class="dropdown-item">Conta</router-link>
         <hr>
-        <p class="dropdown-item">Sair</p>
+        <p @click="handleLogout" class="dropdown-item">Sair</p>
       </div>
     </div>
   </header>
@@ -33,6 +33,9 @@ import Component from "vue-class-component";
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
 import DropdownIcon from "vue-material-design-icons/ChevronDown.vue";
 
+// Instances
+import { tokenHandler } from "../../main/composers/api";
+
 @Component({
   components: {
     LogoutIcon,
@@ -42,6 +45,11 @@ import DropdownIcon from "vue-material-design-icons/ChevronDown.vue";
 export default class Header extends Vue {
   public get user() {
     return this.$store.state.userStore.user;
+  }
+
+  public handleLogout(): void {
+    this.$store.commit("userStore/setUser", {});
+    tokenHandler.clearLocalStorage();
   }
 }
 </script>
