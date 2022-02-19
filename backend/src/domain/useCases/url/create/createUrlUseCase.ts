@@ -14,6 +14,10 @@ class CreateUrlUseCase {
       return urlExists;
     }
 
+    if (originalURL.split(":")[0] !== "https") {
+      throw new Error("A URL precisa iniciar com https");
+    }
+
     const newUrl = new Url(originalURL, userId);
 
     if (userId) {

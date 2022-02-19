@@ -4,7 +4,6 @@ class DeleteUrlUseCase {
   constructor(private readonly urlRepository: IUrlRepository) {}
 
   async execute(id: string, userId?: string): Promise<void> {
-    console.log(id);
     const urlExists = await this.urlRepository.findById(id);
     if (!urlExists) {
       throw new Error("Url não encontrada");
