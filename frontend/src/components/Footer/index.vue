@@ -50,6 +50,10 @@ export default class Footer extends Vue {}
   justify-content: space-between;
 }
 
+.footer-container img {
+  width: 10vw;
+}
+
 .social {
   display: flex;
   flex-direction: column;
@@ -59,6 +63,7 @@ export default class Footer extends Vue {}
 .social strong {
   margin-top: 0.5rem;
   color: var(--gray-color);
+  font-size: 1.1vw;
   opacity: 0.3;
 }
 

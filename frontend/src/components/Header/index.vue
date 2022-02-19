@@ -72,7 +72,7 @@ export default class Header extends Vue {
 }
 
 .logo a {
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   text-decoration: none;
   color: var(--gray-violet-color);
   cursor: pointer;
@@ -88,6 +88,7 @@ export default class Header extends Vue {
 }
 
 .logo img {
+  width: 10vw;
   margin-top: 0.5rem;
   cursor: pointer;
 }
@@ -143,7 +144,7 @@ export default class Header extends Vue {
 }
 
 .open-dropdown p {
-  font-size: 1.2rem;
+  font-size: 1.4vw;
 }
 
 .menu-dropdown hr {

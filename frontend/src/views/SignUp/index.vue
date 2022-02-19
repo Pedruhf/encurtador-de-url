@@ -55,6 +55,7 @@ export default class SignUp extends Vue {
     try {
       await api.request.post("users", this.userToRegister);
       this.resetRegisterFields();
+      alert("Cadastro realizado com sucesso");
       this.$router.push({ name: "login" });
     } catch (error) {
       alert(error.response.data.error);
@@ -82,7 +83,7 @@ export default class SignUp extends Vue {
 }
 
 .signup-content h1 {
-  font-size: 3rem;
+  font-size: 3.1vw;
   color: var(--very-dark-blue-color);
   line-height: 3.5rem;
 }
@@ -90,7 +91,7 @@ export default class SignUp extends Vue {
 input {
   width: 100%;
   height: 2.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding: 0 1rem;
 
   border-radius: 0.5rem;
@@ -106,11 +107,11 @@ button {
   margin-top: 2rem;
   width: max-content;
   height: 2.4rem;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.5vw;
   border-radius: 2rem;
   border: 1px solid var(--cyan-color);
   outline: 0;
-  font-size: 1rem;
+  font-size: 1.2vw;
   color: var(--cyan-color);
   background: #fff;
 
@@ -127,6 +128,7 @@ button:hover {
 .signup-content p {
   margin-top: 1rem;
   color: var(--gray-color);
+  font-size: 1.2vw;
 }
 
 .signup-content p a {

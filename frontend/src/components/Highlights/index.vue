@@ -101,6 +101,8 @@ export default class Highlights extends Vue {
 
       this.handleAddToCreateUrls(res.data);
       this.handleAddToUserUrls(res.data);
+
+      this.inputUrl = "";
     } catch (error) {
       alert(error.response.data.error);
     }
@@ -123,6 +125,7 @@ export default class Highlights extends Vue {
 .link-container {
   width: 80%;
   height: 10rem;
+  padding: 0 5%;
   margin-top: -5rem;
   border-radius: 0.5rem;
 
@@ -154,7 +157,7 @@ export default class Highlights extends Vue {
   border-radius: 0.5rem;
   border: 0;
   outline: 0;
-  font-size: 1rem;
+  font-size: 1.4vw;
   background: var(--cyan-color);
   color: #fff;
 }
@@ -182,23 +185,26 @@ button:hover {
 }
 
 .highlights-content h1 {
-  font-size: 3rem;
+  font-size: 3vw;
   color: var(--very-dark-blue-color);
 }
 
 .highlights-content p {
   text-align: center;
   margin-top: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.2vw;
   color: var(--gray-color);
 }
 
 .hightlights-cards {
   margin-top: 4rem;
+  padding: 0 1rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  gap: 1rem;
 
   flex-wrap: wrap;
 }
@@ -216,11 +222,12 @@ button:hover {
 
 .hightlights-card strong,
 .hightlights-card p {
+  font-size: 1.2vw;
   text-align: center;
   margin-top: 0.5rem;
 }
 
-.hightlights-card + .hightlights-card {
+/* .hightlights-card + .hightlights-card {
   margin-left: 2rem;
-}
+} */
 </style>

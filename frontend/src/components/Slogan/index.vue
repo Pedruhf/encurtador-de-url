@@ -29,33 +29,37 @@ export default class Slogan extends Vue {}
   gap: 0 2rem;
 }
 .slogan-container img {
-  width: 35rem;
+  width: 40vw;
 }
 
 
 .slogan-text h1 {
-  font-size: 3rem;
+  font-size: 3vw;
   color: var(--very-dark-blue-color);
-  line-height: 3.5rem;
+  line-height: 3.5vw;
 }
 
 .slogan-text p {
   margin-top: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   color: var(--gray-color);
 }
 
 button {
   margin-top: 2rem;
   width: max-content;
-  height: 2.75rem;
-  padding: 0.5rem 1.5rem;
+  height: 3.5vw;
+  padding: 0.5rem 2vw;
   border-radius: 2rem;
   border: 0;
   outline: 0;
-  font-size: 1rem;
+  font-size: 1.2vw;
   background: var(--cyan-color);
   color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button:hover {

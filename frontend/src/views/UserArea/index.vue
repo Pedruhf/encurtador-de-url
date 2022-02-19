@@ -20,11 +20,11 @@
         <button @click="isEditing = true">Editar</button>
       </div>
       <div v-if="navOption === 0 && isEditing" class="user-info">
-        <input type="text" placeholder="Nome">
-        <input type="e-mail" placeholder="E-mail">
+        <input v-model="userToUpdate.name" type="text" placeholder="Nome">
+        <input v-model="userToUpdate.email" type="e-mail" placeholder="E-mail">
         <div class="control-buttons">
           <button @click="isEditing = false">Cancelar</button>
-          <button>Salvar</button>
+          <button @click="handleUpdateUser()">Salvar</button>
         </div>
       </div>
       <div v-if="navOption === 1" class="URL-container">
@@ -54,6 +54,12 @@ import { User } from "../../models/user";
 // Instances
 import { api, tokenHandler } from "../../main/composers/api";
 
+// Types
+type UserToUpdate = {
+  name: string;
+  email: string;
+}
+
 @Component({
   components: {
     UserIcon,
@@ -64,11 +70,16 @@ import { api, tokenHandler } from "../../main/composers/api";
 export default class UserArea extends Vue {
   public isEditing: boolean;
   public navOption: number;
+  public userToUpdate: UserToUpdate;
 
   constructor() {
     super();
     this.isEditing = false;
     this.navOption = 0;
+    this.userToUpdate = {
+      name: this.user.name,
+      email: this.user.email,
+    }
   }
 
   public get user(): User {
@@ -93,6 +104,26 @@ export default class UserArea extends Vue {
     try {
       await api.request.delete(`${id}`);
       this.handleDeleteUserURL(id);
+    } catch (error) {
+      alert(error.response.data.error);
+    }
+  }
+
+  public async handleUpdateUser(): Promise<void> {
+    try {
+      await api.request.put("users", this.userToUpdate);
+      alert("Informações atualizadas com sucesso!");
+
+      this.user.name = this.userToUpdate.name;
+      this.user.email = this.userToUpdate.email;
+
+      const localStorageData = tokenHandler.getDataFromLocalStorage();
+      tokenHandler.setDataInLocalStorage(JSON.stringify({
+        ...localStorageData,
+        user: this.user,
+      }));
+
+      this.isEditing = false;
     } catch (error) {
       alert(error.response.data.error);
     }
@@ -235,5 +266,11 @@ input + input {
 .URL-card span {
   margin-top: 0.3rem;
   cursor: pointer;
+  color: var(--red-color);
+  transition: filter 0.3s;
+}
+
+.URL-card span:hover {
+  filter: brightness(0.6);
 }
 </style>

@@ -67,6 +67,7 @@ table {
 
 table th, table td {
   text-align: center;
+  font-size: 1.1vw;
 }
 
 table td:first-child, th:first-child {
