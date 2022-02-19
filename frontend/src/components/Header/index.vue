@@ -71,7 +71,7 @@ export default class Header extends Vue {
 }
 
 .logo a {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   text-decoration: none;
   color: var(--gray-violet-color);
   cursor: pointer;

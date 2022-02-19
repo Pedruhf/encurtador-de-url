@@ -11,8 +11,8 @@
 
       <tbody>
         <tr v-for="url in mostAccessedsUrls" :key="url._id">
-          <td>{{ url.originalURL }}</td>
-          <td>{{ url.shortenedURL  }}</td>
+          <td><a target="_blank" :href="url.originalURL">{{ url.originalURL }}</a></td>
+          <td><a target="_blank" :href="url.shortenedURL">{{ url.shortenedURL  }}</a></td>
           <td>{{ url.hitCounter }}</td>
         </tr>
       </tbody>
@@ -61,6 +61,8 @@ table {
   padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0.4rem 0.4rem 1rem rgba(0, 0, 0, 0.2);
+  border-collapse: separate;
+  border-spacing: 0.5rem;
 }
 
 table th, table td {
@@ -69,5 +71,14 @@ table th, table td {
 
 table td:first-child, th:first-child {
   text-align: left;
+}
+
+table td a {
+  text-decoration: none;
+  color: inherit;
+}
+
+table td a:hover {
+  text-decoration: underline;
 }
 </style>
