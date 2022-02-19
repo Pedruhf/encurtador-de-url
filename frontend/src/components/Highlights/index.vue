@@ -43,7 +43,10 @@ import Component from "vue-class-component";
 import { Url } from "../../models/url";
 
 // Instances
-import { api } from "../../main/composers/api";
+import { api, tokenHandler } from "../../main/composers/api";
+
+// Models
+import { User } from "../../models/user";
 
 @Component({})
 export default class Highlights extends Vue {
@@ -54,6 +57,10 @@ export default class Highlights extends Vue {
     super();
     this.inputUrl = "";
     this.createdUrls = [];
+  }
+
+  public get user(): User {
+    return this.$store.state.userStore.user;
   }
 
   public get userIsLogged(): boolean {
@@ -67,6 +74,24 @@ export default class Highlights extends Vue {
     this.createdUrls.push(url);
   }
 
+  public handleAddToUserUrls(url: Url): void {
+    const owner = url.owner;
+    if (!owner || owner !== this.user._id) {
+      return;
+    }
+
+    const urlExists = this.user.savedUrls.find(item => item._id === url._id);
+    if (urlExists) return;
+
+    this.user.savedUrls.push(url);
+
+    const localStorageData = tokenHandler.getDataFromLocalStorage();
+    tokenHandler.setDataInLocalStorage(JSON.stringify({
+      ...localStorageData,
+      user: this.user,
+    }));
+  }
+
   public async handleCreateUrlShortened(): Promise<void> {
     const requestURL = this.userIsLogged ? "auth" : "";
     try {
@@ -75,7 +100,7 @@ export default class Highlights extends Vue {
       });
 
       this.handleAddToCreateUrls(res.data);
-      console.log(this.createdUrls);
+      this.handleAddToUserUrls(res.data);
     } catch (error) {
       alert(error.response.data.error);
     }

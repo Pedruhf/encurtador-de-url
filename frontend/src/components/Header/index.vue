@@ -50,6 +50,7 @@ export default class Header extends Vue {
   public handleLogout(): void {
     this.$store.commit("userStore/setUser", {});
     tokenHandler.clearLocalStorage();
+    this.$router.push({ name: "login" });
   }
 }
 </script>
@@ -138,6 +139,11 @@ export default class Header extends Vue {
   padding: 1rem;
   
   box-shadow: 0.4rem 0.4rem 1rem rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.open-dropdown p {
+  font-size: 1.2rem;
 }
 
 .menu-dropdown hr {

@@ -3,7 +3,11 @@ export default class TokenHandler {
 
   public getDataFromLocalStorage(): any | null {
     const stringData = localStorage.getItem(this.LOCAL_STORAGE_SECRET_KEY);
-    const data = stringData ? JSON.parse(stringData) : null;
+    if (!stringData) {
+      return null;
+    }
+    
+    const data = JSON.parse(stringData);
     return data;
   }
 

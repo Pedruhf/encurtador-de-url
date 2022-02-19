@@ -14,13 +14,20 @@ import { Component, Vue } from 'vue-property-decorator';
 import Header from "./components/Header/index.vue";
 import Footer from "./components/Footer/index.vue";
 
+// Functions
+import { autoLogin } from "./utils/autoLogin";
+
 @Component({
   components: {
     Header,
     Footer
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  public beforeMount(): void {
+    autoLogin();
+  }
+}
 </script>
 
 <style>

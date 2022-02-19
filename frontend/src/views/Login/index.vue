@@ -38,9 +38,12 @@ export default class Login extends Vue {
         password,
       });
 
+      const now = Number(new Date()) / 1000;
+
       tokenHandler.setDataInLocalStorage(JSON.stringify({
+        user: res.data.user,
         token: res.data.token,
-        tokenExpires: 60 * 60 * 24,
+        tokenExpires: now + (60 * 60 * 24),
       }));
 
       this.$store.commit("userStore/setUser", {

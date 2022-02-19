@@ -16,7 +16,7 @@
       <div v-if="navOption === 0 && !isEditing" class="user-info">
         <p><strong>Nome:</strong> {{ user.name || "Não informado" }}</p>
         <p><strong>email:</strong> {{ user.email || "Não informado" }}</p>
-        <p><strong>Quantidade de URL's criadas:</strong> {{ user.savedUrls.length }}</p>
+        <p><strong>Quantidade de URL's criadas:</strong> {{ user.savedUrls ? user.savedUrls.length : "Não informado" }}</p>
         <button @click="isEditing = true">Editar</button>
       </div>
       <div v-if="navOption === 0 && isEditing" class="user-info">
@@ -30,7 +30,7 @@
       <div v-if="navOption === 1" class="URL-container">
         <div v-for="url in user.savedUrls" :key="url._id" class="URL-card">
           <p>{{ url.shortenedURL }} -> {{ url.originalURL }}</p>
-          <delete-icon />
+          <delete-icon @click="handleDeleteURL(url._id)" />
         </div>
       </div>
       </div>
@@ -48,8 +48,11 @@ import UserIcon from "vue-material-design-icons/Account.vue";
 import UrlIcon from "vue-material-design-icons/LinkBoxVariant.vue";
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
 
-// Types
+// Models
 import { User } from "../../models/user";
+
+// Instances
+import { api, tokenHandler } from "../../main/composers/api";
 
 @Component({
   components: {
@@ -70,6 +73,29 @@ export default class UserArea extends Vue {
 
   public get user(): User {
     return this.$store.state.userStore.user;
+  }
+
+  public handleDeleteUserURL(id: string): void {
+    const urlIndex = this.user.savedUrls.findIndex(item => item._id === id);
+    if (urlIndex < 0) {
+      return;
+    }
+
+    this.user.savedUrls.splice(urlIndex, 1);
+    const localStorageData = tokenHandler.getDataFromLocalStorage();
+    tokenHandler.setDataInLocalStorage(JSON.stringify({
+      ...localStorageData,
+      user: this.user,
+    }));
+  }
+
+  public async handleDeleteURL(id: string): Promise<void> {
+    try {
+      await api.request.delete(`${id}`);
+      this.handleDeleteUserURL(id);
+    } catch (error) {
+      alert(error.response.data.error);
+    }
   }
 }
 </script>
