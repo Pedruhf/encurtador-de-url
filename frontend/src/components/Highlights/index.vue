@@ -1,6 +1,6 @@
 <template>
   <div class="highlights-container">
-    <div class="link-container">
+    <div id="url-container" class="link-container">
       <input v-model="inputUrl" type="text" placeholder="Insira sua URL" />
       <button @click="handleCreateUrlShortened">Encurtar</button>
     </div>
@@ -25,7 +25,7 @@
           <p>Tenha seus links encurtados salvos para consultar a hora que quiser</p>
         </div>
         <div class="hightlights-card">
-          <img src="../../assets/icon-brand-recognition.svg" alt="Records">
+          <star-icon />
           <strong>Top 100 URL's mais acessadas</strong>
           <p>Análise quais estão sendo as URL's mais acessadas do momento</p>
         </div>
@@ -48,7 +48,15 @@ import { api, tokenHandler } from "../../main/composers/api";
 // Models
 import { User } from "../../models/user";
 
-@Component({})
+// Icons
+import StarIcon from "vue-material-design-icons/StarCircleOutline.vue";
+
+
+@Component({
+  components: {
+    StarIcon,
+  }
+})
 export default class Highlights extends Vue {
   public inputUrl: string;
   public createdUrls: Url[]
@@ -227,7 +235,13 @@ button:hover {
   margin-top: 0.5rem;
 }
 
-/* .hightlights-card + .hightlights-card {
-  margin-left: 2rem;
-} */
+.hightlights-card span {
+  display: flex;
+}
+
+.hightlights-card .material-design-icon >>> svg {
+  color: var(--cyan-color);
+  height: 2.6rem;
+  width: 2.6rem !important;
+}
 </style>

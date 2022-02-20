@@ -107,11 +107,11 @@ export default class Header extends Vue {
 .auth-buttons a {
   width: max-content;
   height: 2.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1vw;
   border-radius: 2rem;
   border: 0;
   outline: 0;
-  font-size: 0.9rem;
+  font-size: 1vw;
   text-decoration: none;
 }
 

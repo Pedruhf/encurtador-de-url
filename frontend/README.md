@@ -1,19 +1,5 @@
-# frontend
+# COMO RODAR O FRONT-END (VUEJS)
 
-## Project setup
-```
-yarn install
-```
+## EXECUTAR O COMANDO `yarn` OU `npm install` PARA CARREGAR AS DEPEDÊNCIAS DO PROJETO <br /><br />
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## EXECUTAR O COMANDO `yarn serve` OU `npm run serve` PARA INICIAR A APLICAÇÃO <br /><br />

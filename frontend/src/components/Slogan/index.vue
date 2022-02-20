@@ -4,7 +4,7 @@
     <div class="slogan-text">
       <h1>Encurte seus links<br />com facilidade e<br />totalmente de graça</h1>
       <p>Transforme suas URL's para parecem mais agradáveis</p>
-      <button>Começar agora</button>
+      <a href="#url-container">Começar agora</a>
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ export default class Slogan extends Vue {}
   color: var(--gray-color);
 }
 
-button {
+a {
   margin-top: 2rem;
   width: max-content;
   height: 3.5vw;
@@ -56,13 +56,14 @@ button {
   font-size: 1.2vw;
   background: var(--cyan-color);
   color: #fff;
+  text-decoration: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-button:hover {
+a:hover {
   filter: brightness(0.95);
 }
 </style>
