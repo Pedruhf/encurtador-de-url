@@ -6,7 +6,7 @@ class User {
   name: string;
   email: string;
   password?: string;
-  savedUrls: string[];
+  savedUrls?: string[];
   createdAt?: Date | string;
 
   constructor (user: Omit<User, "_id">) {
