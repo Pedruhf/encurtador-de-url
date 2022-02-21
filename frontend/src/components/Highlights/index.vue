@@ -44,6 +44,7 @@ import { Url } from "../../domain/models/url";
 
 // Instances
 import { api, tokenHandler } from "../../main/composers/api";
+import { createUrlUseCase } from "../../main/composers/url";
 
 // Models
 import { User } from "../../domain/models/user";
@@ -101,13 +102,12 @@ export default class Highlights extends Vue {
 
   public async handleCreateUrlShortened(): Promise<void> {
     const requestURL = this.userIsLogged ? "auth" : "";
-    try {
-      const res = await api.request.post(requestURL, {
-        originalURL: this.inputUrl,
-      });
 
-      this.handleAddToCreateUrls(res.data);
-      this.handleAddToUserUrls(res.data);
+    try {
+      const url = await createUrlUseCase.execute(this.inputUrl, requestURL);
+
+      this.handleAddToCreateUrls(url);
+      this.handleAddToUserUrls(url);
 
       this.inputUrl = "";
     } catch (error) {

@@ -26,7 +26,9 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 // Instances
-import { api } from "../../main/composers/api";
+import { getMostAccessedUrlsUseCase } from "../../main/composers/url";
+
+// Models
 import { Url } from "../../domain/models/url";
 
 @Component({})
@@ -39,8 +41,8 @@ export default class MostAccessedUrls extends Vue {
   }
 
   public async getMostAccessedUrls(): Promise<Url[]> {
-    const res = await api.request.get("urls/most-accesseds");
-    return res.data;
+    const urls = await getMostAccessedUrlsUseCase.execute();
+    return urls;
   }
 
   public async mounted(): Promise<void> {
