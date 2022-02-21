@@ -27,7 +27,7 @@ import Component from "vue-class-component";
 
 // Instances
 import { api } from "../../main/composers/api";
-import { Url } from "../../models/url";
+import { Url } from "../../domain/models/url";
 
 @Component({})
 export default class MostAccessedUrls extends Vue {
@@ -72,11 +72,18 @@ table th, table td {
 
 table td:first-child, th:first-child {
   text-align: left;
+  max-width: 25vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 table td a {
   text-decoration: none;
   color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 table td a:hover {

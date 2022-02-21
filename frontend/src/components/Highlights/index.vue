@@ -40,17 +40,16 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 // Models
-import { Url } from "../../models/url";
+import { Url } from "../../domain/models/url";
 
 // Instances
 import { api, tokenHandler } from "../../main/composers/api";
 
 // Models
-import { User } from "../../models/user";
+import { User } from "../../domain/models/user";
 
 // Icons
 import StarIcon from "vue-material-design-icons/StarCircleOutline.vue";
-
 
 @Component({
   components: {
@@ -88,10 +87,10 @@ export default class Highlights extends Vue {
       return;
     }
 
-    const urlExists = this.user.savedUrls.find(item => item._id === url._id);
+    const urlExists = this.user.savedUrls?.find(item => item._id === url._id);
     if (urlExists) return;
 
-    this.user.savedUrls.push(url);
+    this.user.savedUrls?.push(url);
 
     const localStorageData = tokenHandler.getDataFromLocalStorage();
     tokenHandler.setDataInLocalStorage(JSON.stringify({

@@ -1,5 +1,5 @@
 import { Module } from "vuex";
-import { User } from "@/models/user";
+import { User } from "@/domain/models/user";
 
 interface UserStore {
   user: User;

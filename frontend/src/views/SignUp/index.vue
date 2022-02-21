@@ -18,19 +18,15 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-// Instances
-import { api } from "../../main/composers/api";
+// Types
+import { IRegisterUserRequestoDTO } from "../../domain/useCases/user/register/registerUserRequestoDTO";
 
-type UserToRegister = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+// Instances
+import { registerUserUseCase } from "../../main/composers/user";
 
 @Component({})
 export default class SignUp extends Vue {
-  public userToRegister: UserToRegister;
+  public userToRegister: IRegisterUserRequestoDTO;
 
   constructor() {
     super();
@@ -51,9 +47,9 @@ export default class SignUp extends Vue {
     };
   }
 
-  public async handleRegister(data: UserToRegister): Promise<void> {
+  public async handleRegister(data: IRegisterUserRequestoDTO): Promise<void> {
     try {
-      await api.request.post("users", this.userToRegister);
+      await registerUserUseCase.execute(data);
       this.resetRegisterFields();
       alert("Cadastro realizado com sucesso");
       this.$router.push({ name: "login" });

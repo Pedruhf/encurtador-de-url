@@ -18,6 +18,7 @@ import Component from "vue-class-component";
 
 // Instances
 import { api, tokenHandler } from "../../main/composers/api";
+import { loginUserUseCase } from "../../main/composers/user";
 
 @Component({})
 export default class Login extends Vue {
@@ -30,24 +31,20 @@ export default class Login extends Vue {
     this.password = "";
   }
 
-
   public async handleLogin(email: string, password: string): Promise<void> {
     try {
-      const res = await api.request.post("/users/login", {
-        email,
-        password,
-      });
+      const { user, token } = await loginUserUseCase.execute(email, password);
 
       const now = Number(new Date()) / 1000;
 
       tokenHandler.setDataInLocalStorage(JSON.stringify({
-        user: res.data.user,
-        token: res.data.token,
+        user: user,
+        token: token,
         tokenExpires: now + (60 * 60 * 24),
       }));
 
       this.$store.commit("userStore/setUser", {
-        ...res.data.user
+        ...user
       });
 
       this.$router.push({ name: "account" });

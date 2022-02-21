@@ -15,7 +15,7 @@ import Header from "./components/Header/index.vue";
 import Footer from "./components/Footer/index.vue";
 
 // Functions
-import { autoLogin } from "./utils/autoLogin";
+import { autoLogin } from "./main/utils/autoLogin";
 
 @Component({
   components: {

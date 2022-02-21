@@ -1,4 +1,4 @@
-import TokenHandler from "@/utils/tokenHandler";
+import TokenHandler from "@/main/utils/tokenHandler";
 import axios, { AxiosInstance } from "axios";
 
 export default class Api {
@@ -8,7 +8,7 @@ export default class Api {
     this.request = axios.create({
       baseURL: process.env.API_HOST || "http://localhost:4000",
       headers: {
-        authorization: `bearer ${tokenHandler.getDataFromLocalStorage()?.token}`
+        authorization: `bearer ${this.tokenHandler.getDataFromLocalStorage()?.token}`
       },
     });
   }  

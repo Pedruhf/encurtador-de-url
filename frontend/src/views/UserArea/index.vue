@@ -49,10 +49,11 @@ import UrlIcon from "vue-material-design-icons/LinkBoxVariant.vue";
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
 
 // Models
-import { User } from "../../models/user";
+import { User } from "../../domain/models/user";
 
 // Instances
 import { api, tokenHandler } from "../../main/composers/api";
+import { Url } from "../../domain/models/url";
 
 // Types
 type UserToUpdate = {
@@ -87,12 +88,12 @@ export default class UserArea extends Vue {
   }
 
   public handleDeleteUserURL(id: string): void {
-    const urlIndex = this.user.savedUrls.findIndex(item => item._id === id);
+    const urlIndex = this.user.savedUrls?.findIndex((item: Url) => item._id === id) as number;
     if (urlIndex < 0) {
       return;
     }
 
-    this.user.savedUrls.splice(urlIndex, 1);
+    this.user.savedUrls?.splice(urlIndex, 1);
     const localStorageData = tokenHandler.getDataFromLocalStorage();
     tokenHandler.setDataInLocalStorage(JSON.stringify({
       ...localStorageData,
@@ -155,12 +156,13 @@ export default class UserArea extends Vue {
 .user-area-content {
   margin-top: 1.5rem;
 
-  display: grid;
-  grid-template-columns: 0.3fr 1fr;
+  display: flex;
   gap: 0 5%;
 }
 
 nav {
+  width: 20%;
+  min-width: max-content;
   border-right: 1px solid rgba(0, 255, 242, 0.2);
 }
 
@@ -194,6 +196,7 @@ nav {
 .user-info, .URL-container {
   display: flex;
   flex-direction: column;
+  width: 75%;
 }
 
 .user-info p {
@@ -261,6 +264,13 @@ input + input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.URL-container p {
+  max-width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .URL-card span {

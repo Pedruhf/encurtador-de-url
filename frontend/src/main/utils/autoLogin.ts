@@ -1,5 +1,5 @@
-import { tokenHandler } from "../main/composers/api";
-import { userStore } from "../store/modules/user";
+import { tokenHandler } from "../composers/api";
+import { userStore } from "../../store/modules/user";
 
 async function autoLogin(): Promise<void> {
   const localData = tokenHandler.getDataFromLocalStorage();

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import { userStore } from "../store/modules/user";
+import { userStore } from "../../store/modules/user";
 
 Vue.use(VueRouter);
 
